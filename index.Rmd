@@ -1,0 +1,32 @@
+---
+title: "Population of the different cities of the Aburrá Valley, Colombia"
+author: "Nico Frisch"
+date: "11 8 2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, echo = FALSE, warning=FALSE, message=FALSE}
+suppressPackageStartupMessages(library(leaflet))
+
+# Drawing Circles
+valleDeAburra <- data.frame(name = c("Medellin", "Bello", "Itagui", "Envigado",
+                                     "Sabaneta", "Caldas", "Copacabana", "La Estrella",
+                                     "Barbosa", "Girardota"),
+                            pop = c(2427129, 522264, 276744, 228848, 82375, 79638,
+                                    77884, 71545, 51969, 51662),
+                            lat = c(6.230833, 6.333332, 6.18461, 6.17591, 6.15, 6.09,
+                                    6.3499986, 6.15769, 6.439, 6.37250017666),
+                            lng = c( -75.57, -75.5666644, -75.59913, -75.59174, -75.6, -75.638,
+                                     -75.5166646, -75.64317, -75.333, -75.4417032332))
+
+valleDeAburra %>%
+        leaflet() %>%
+        addTiles() %>%
+        addCircles(weight = 2, radius = sqrt(valleDeAburra$pop) * 5,
+                   label = paste(valleDeAburra$pop))
+```
+
